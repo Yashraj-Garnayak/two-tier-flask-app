@@ -20,7 +20,7 @@ Before you begin, ensure you have:
 1. Clone repository:
 
 ```
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Yashraj-Garnayak/two-tier-flask-app.git
 ```
 
 2. Navigate to project:
