@@ -1,97 +1,89 @@
- 
-# Flask App with MySQL Docker Setup
+# 🐍 Flask App with MySQL Docker Setup 🐳
 
-This is a simple Flask app that interacts with a MySQL database. The app allows users to submit messages, which are then stored in the database and displayed on the frontend.
+This is a simple Flask app that interacts with a MySQL database. The app allows users to submit messages which are stored in the database and displayed.
 
-## Prerequisites
+🌟 **Key Features**:
+- Flask frontend
+- MySQL backend
+- Docker containerization
+- Easy setup
 
-Before you begin, make sure you have the following installed:
+## 🧰 Prerequisites
 
-- Docker
-- Git (optional, for cloning the repository)
+Before you begin, ensure you have:
 
-## Setup
+- Docker 🐳
+- Git (optional) 🔄
 
-1. Clone this repository (if you haven't already):
+## 🚀 Setup Steps
 
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   ```
+1. Clone repository:
 
-2. Navigate to the project directory:
-
-   ```bash
-   cd your-repo-name
-   ```
-
-3. Create a `.env` file in the project directory to store your MySQL environment variables:
-
-   ```bash
-   touch .env
-   ```
-
-4. Open the `.env` file and add your MySQL configuration:
-
-   ```
-   MYSQL_HOST=mysql
-   MYSQL_USER=your_username
-   MYSQL_PASSWORD=your_password
-   MYSQL_DB=your_database
-   ```
-
-## Usage
-
-1. Start the containers using Docker Compose:
-
-   ```bash
-   docker-compose up --build
-   ```
-
-2. Access the Flask app in your web browser:
-
-   - Frontend: http://localhost
-   - Backend: http://localhost:5000
-
-3. Create the `messages` table in your MySQL database:
-
-   - Use a MySQL client or tool (e.g., phpMyAdmin) to execute the following SQL commands:
-   
-     ```sql
-     CREATE TABLE messages (
-         id INT AUTO_INCREMENT PRIMARY KEY,
-         message TEXT
-     );
-     ```
-
-4. Interact with the app:
-
-   - Visit http://localhost to see the frontend. You can submit new messages using the form.
-   - Visit http://localhost:5000/insert_sql to insert a message directly into the `messages` table via an SQL query.
-
-## Cleaning Up
-
-To stop and remove the Docker containers, press `Ctrl+C` in the terminal where the containers are running, or use the following command:
-
-```bash
-docker-compose down
+```
+git clone https://github.com/your-username/your-repo-name.git
 ```
 
-## To run this two-tier application using  without docker-compose
+2. Navigate to project:
 
-- First create a docker image from Dockerfile
-```bash
+```
+cd your-repo-name
+```
+
+3. Create environment file:
+
+```
+touch .env
+```
+
+4. Configure MySQL:
+
+```
+MYSQL_HOST=mysql
+MYSQL_USER=your_username
+MYSQL_PASSWORD=your_password
+MYSQL_DB=your_database
+```
+
+## 🏃‍♂️ Running the App
+
+### 🐳 Using Docker Compose
+
+Start containers:
+
+```
+docker-compose up --build
+```
+
+Access:
+- 🌐 Frontend: http://localhost
+- ⚙️ Backend: http://localhost:5000
+
+Initialize database:
+
+```
+CREATE TABLE messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT
+);
+```
+
+### ⚙️ Manual Docker Setup
+
+1. Build image:
+
+```
 docker build -t flaskapp .
 ```
 
-- Now, make sure that you have created a network using following command
-```bash
+2. Create network:
+
+```
 docker network create twotier
 ```
 
-- Attach both the containers in the same network, so that they can communicate with each other
+3. Run MySQL:
 
-i) MySQL container 
-```bash
+```
 docker run -d \
     --name mysql \
     -v mysql-data:/var/lib/mysql \
@@ -100,10 +92,11 @@ docker run -d \
     -e MYSQL_ROOT_PASSWORD=admin \
     -p 3306:3306 \
     mysql:5.7
+```
+
+4. Run Flask:
 
 ```
-ii) Backend container
-```bash
 docker run -d \
     --name flaskapp \
     --network=twotier \
@@ -113,18 +106,25 @@ docker run -d \
     -e MYSQL_DB=mydb \
     -p 5000:5000 \
     flaskapp:latest
-
 ```
 
-## Notes
+## 🧹 Cleanup
 
-- Make sure to replace placeholders (e.g., `your_username`, `your_password`, `your_database`) with your actual MySQL configuration.
-
-- This is a basic setup for demonstration purposes. In a production environment, you should follow best practices for security and performance.
-
-- Be cautious when executing SQL queries directly. Validate and sanitize user inputs to prevent vulnerabilities like SQL injection.
-
-- If you encounter issues, check Docker logs and error messages for troubleshooting.
+Stop containers:
 
 ```
+docker-compose down
+```
 
+## ⚠️ Important Notes
+
+🔐 **Security Tips**:
+- Always change default credentials
+- Use proper secrets management
+- Sanitize user inputs
+
+🐞 **Troubleshooting**:
+- Check logs: `docker logs <container>`
+- Verify network: `docker network inspect twotier`
+
+📜 **License**: MIT
