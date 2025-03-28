@@ -126,5 +126,3 @@ docker-compose down
 🐞 **Troubleshooting**:
 - Check logs: `docker logs <container>`
 - Verify network: `docker network inspect twotier`
-
-📜 **License**: MIT
